@@ -14,6 +14,7 @@ import datetime
  
 import matplotlib.pyplot as plt
 
+######################################################################
 #data
 transform = transforms.Compose(
     [transforms.ToTensor(),
@@ -31,7 +32,8 @@ testloader = torch.utils.data.DataLoader(testset, batch_size=4,
  
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-      
+
+######################################################################
 #Model
 class Net(nn.Module):
     def __init__(self):
@@ -87,6 +89,7 @@ net = torch.nn.DataParallel(net, device_ids=range(torch.cuda.device_count()))
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
+######################################################################
 #aux functions
 def calculateAcc(dataset):
     #forward pass to compute accuracy on every epoch
@@ -101,12 +104,11 @@ def calculateAcc(dataset):
         _, predicted = torch.max(outputs.data, 1)
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
-        accuracy = 100 * correct / total
- 
+        accuracy = 100 * correct / total 
     return accuracy
     
-#training and results
- 
+######################################################################
+#training and results 
 nepochs = 10;
 minepochs = 3; #minimum number of epochs before Early Stopping
  
